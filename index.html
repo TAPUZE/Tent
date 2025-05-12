@@ -91,33 +91,17 @@
         /* Styling for the background video */
         .header-background-video {
             position: absolute;
-            top: 0; /* Changed from 50% */
-            left: 0; /* Changed from 50% */
-            width: 100%; /* Changed from auto */
-            height: 100%; /* Changed from auto */
-            /* Removed transform: translate(-50%, -50%); */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
             object-fit: cover;
-            /* Default position (centered) for larger screens */
+            /* Default position (centered) */
             object-position: center center;
         }
 
-        /* ***** NEW: Mobile specific video positioning ***** */
-        @media (max-width: 767px) { /* Target mobile screens */
-            .header-background-video {
-                /* Show the right part of the video */
-                /* 'right center' means align the right edge of the video with the right edge of the container, vertically centered */
-                object-position: right center;
-                /* Alternative: Use percentages like 80% 50% to show 80% from the left edge */
-                /* object-position: 80% 50%; */
-            }
-            /* If diagonal means slightly rotated (more complex, might affect edges) */
-            /* .header-background-video {
-                transform: rotate(-5deg) scale(1.2); // Example rotation
-                object-position: right center;
-            } */
-        }
-        /* ***** END OF NEW STYLE ***** */
+        /* Removed mobile specific object-position rule */
 
 
         /* Overlay on Header Video */
@@ -205,8 +189,8 @@
 
     <header class="fade-in-section visible relative">
         <div class="header-video-container">
-            <video autoplay loop muted playsinline class="header-background-video">
-                <source src="header.mp4" type="video/mp4">
+            <video id="header-video" autoplay loop muted playsinline class="header-background-video">
+                <source id="header-video-source" src="header.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
@@ -317,6 +301,61 @@
         sections.forEach(section => {
              observer.observe(section);
         });
+
+
+        // --- Dynamic Header Video Loading ---
+        const videoElement = document.getElementById('header-video');
+        const videoSourceElement = document.getElementById('header-video-source');
+
+        // Define video sources
+        const desktopVideoSrc = 'header.mp4';
+        // !!! IMPORTANT: Replace 'header-mobile.mp4' with the actual filename of your mobile video !!!
+        const mobileVideoSrc = 'header-mobile.mp4';
+
+        // Define the breakpoint (e.g., 768px for tablets and below)
+        const mobileBreakpoint = 767; // max-width for mobile
+
+        // Function to check width and update video source
+        function updateVideoSource() {
+            if (!videoElement || !videoSourceElement) return; // Exit if elements not found
+
+            const currentSrc = videoSourceElement.getAttribute('src');
+            let newSrc;
+
+            if (window.innerWidth <= mobileBreakpoint) {
+                newSrc = mobileVideoSrc;
+            } else {
+                newSrc = desktopVideoSrc;
+            }
+
+            // Only update and reload if the source needs to change
+            if (newSrc !== currentSrc) {
+                console.log(`Changing video source to: ${newSrc}`);
+                videoSourceElement.setAttribute('src', newSrc);
+                videoElement.load(); // Important: Reload the video element to apply the new source
+                // videoElement.play(); // Optional: Try to play immediately after load (might be blocked by browser)
+            }
+        }
+
+        // Debounce function to limit resize event calls
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Run on initial load
+        updateVideoSource();
+
+        // Run on window resize (debounced)
+        window.addEventListener('resize', debounce(updateVideoSource, 250)); // 250ms delay
+
     </script>
 
 </body>
