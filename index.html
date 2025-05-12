@@ -69,15 +69,13 @@
         /* Header Video Container Styling */
         .header-video-container {
             position: relative;
-            /* Removed aspect-ratio, added min-height */
-            min-height: 75vh; /* Minimum 75% of viewport height */
+            min-height: 75vh;
             background-color: #374151;
             overflow: hidden;
-            display: flex; /* Use flex to help center content */
-            align-items: center; /* Vertically center */
-            justify-content: center; /* Horizontally center */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-         /* Optional: Set a different min-height for larger screens if needed */
          @media (min-width: 768px) {
              .header-video-container {
                  min-height: 80vh;
@@ -85,7 +83,7 @@
          }
          @media (min-width: 1024px) {
              .header-video-container {
-                 min-height: 85vh; /* Can be taller on desktop */
+                 min-height: 85vh;
              }
          }
 
@@ -93,16 +91,34 @@
         /* Styling for the background video */
         .header-background-video {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
+            top: 0; /* Changed from 50% */
+            left: 0; /* Changed from 50% */
+            width: 100%; /* Changed from auto */
+            height: 100%; /* Changed from auto */
+            /* Removed transform: translate(-50%, -50%); */
             z-index: 0;
             object-fit: cover;
+            /* Default position (centered) for larger screens */
+            object-position: center center;
         }
+
+        /* ***** NEW: Mobile specific video positioning ***** */
+        @media (max-width: 767px) { /* Target mobile screens */
+            .header-background-video {
+                /* Show the right part of the video */
+                /* 'right center' means align the right edge of the video with the right edge of the container, vertically centered */
+                object-position: right center;
+                /* Alternative: Use percentages like 80% 50% to show 80% from the left edge */
+                /* object-position: 80% 50%; */
+            }
+            /* If diagonal means slightly rotated (more complex, might affect edges) */
+            /* .header-background-video {
+                transform: rotate(-5deg) scale(1.2); // Example rotation
+                object-position: right center;
+            } */
+        }
+        /* ***** END OF NEW STYLE ***** */
+
 
         /* Overlay on Header Video */
         .header-video-overlay {
@@ -113,7 +129,6 @@
         }
 
         /* Header Text Content Styling */
-        /* No longer needs absolute positioning as the container uses flex */
         .header-text-content {
             position: relative;
             z-index: 2;
