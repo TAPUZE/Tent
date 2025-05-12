@@ -30,7 +30,7 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* Custom styles for message box */
+        /* Custom styles for message box (Kept in case needed for other interactions later) */
         #message-box {
             position: fixed;
             top: 20px;
@@ -52,55 +52,6 @@
              color: #991b1b; /* Tailwind red-800 */
         }
 
-        /* Relaxing Background Pattern for Header and Signup */
-        .patterned-bg {
-            position: relative; /* Needed for absolute positioning of leaves */
-            /* Soft green background */
-            background-color: #ecfdf5; /* Tailwind emerald-50 */
-            /* Subtle diagonal lines pattern using CSS gradients */
-            background-image: repeating-linear-gradient(
-                -45deg,
-                rgba(167, 243, 208, 0.3), /* Tailwind emerald-200 with alpha */
-                rgba(167, 243, 208, 0.3) 1px,
-                transparent 1px,
-                transparent 10px /* Adjust spacing of lines */
-            );
-             /* Ensure text color contrasts well */
-             color: #065f46; /* Tailwind emerald-800 */
-             overflow: hidden; /* Hide overflowing leaves */
-        }
-
-        /* Adjust text color specifically for header/signup content on the new background */
-        .patterned-bg h1,
-        .patterned-bg p,
-        .patterned-bg strong {
-             color: #047857; /* Tailwind emerald-700 */
-             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle white shadow for readability */
-        }
-         .patterned-bg h2{ /* Signup section heading */
-             color: #047857; /* Tailwind emerald-700 */
-             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-         }
-
-        .patterned-bg .highlight-box { /* Style for the highlighted discount text */
-            background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
-            backdrop-filter: blur(5px); /* Keep the blur effect */
-            color: #065f46; /* Darker green text for contrast */
-            border: 1px solid rgba(110, 231, 183, 0.5); /* Subtle border */
-        }
-         .patterned-bg .highlight-box strong {
-             color: #047857; /* Even darker green for the strong text */
-             text-shadow: none; /* Remove shadow inside the box */
-         }
-
-
-        /* Ensure header/signup content is above the background patterns/leaves */
-        .patterned-bg > .content-wrapper { /* Target a specific wrapper for content */
-            position: relative;
-            z-index: 2; /* Higher z-index than leaves */
-        }
-
-
         /* Style for feature icons (Lucide SVGs) */
         .feature-icon {
             color: #10b981; /* Tailwind emerald-500 */
@@ -116,78 +67,145 @@
              color: #f59e0b; /* Tailwind amber-500 - Accent color */
         }
 
-        /* Leaf SVG Styles */
-        .leaf-decoration {
+        /* Header Video Container Styling */
+        .header-video-container {
+            position: relative;
+            aspect-ratio: 21 / 9;
+            background-color: #374151;
+            overflow: hidden;
+        }
+
+        /* Styling for the background video */
+        .header-background-video {
             position: absolute;
-            z-index: 1; /* Behind content, above background */
-            opacity: 0.15; /* Subtle opacity */
-            color: #059669; /* Tailwind emerald-600 */
-            pointer-events: none; /* Prevent interaction */
-        }
-        .leaf-1 { top: 10%; left: 5%; width: 100px; transform: rotate(-20deg); }
-        .leaf-2 { top: 60%; left: 15%; width: 60px; transform: rotate(15deg) scaleX(-1); }
-        .leaf-3 { top: 20%; right: 10%; width: 80px; transform: rotate(30deg); }
-        .leaf-4 { bottom: 15%; right: 5%; width: 120px; transform: rotate(-10deg) scaleX(-1); }
-        .leaf-5 { bottom: 5%; left: 40%; width: 50px; transform: rotate(5deg); }
-
-        /* Responsive adjustments for leaves */
-        @media (max-width: 768px) {
-            .leaf-1 { width: 60px; left: 2%; }
-            .leaf-2 { width: 40px; left: 5%; top: 70%;}
-            .leaf-3 { width: 50px; right: 5%; }
-            .leaf-4 { width: 80px; right: 2%; bottom: 10%;}
-            .leaf-5 { display: none; } /* Hide one on smaller screens */
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            object-fit: cover;
         }
 
-        /* Video Player Styling */
-        /* Ensure video player fits container and maintains aspect ratio */
-        video {
-             display: block; /* Remove extra space below video */
+        /* Overlay on Header Video for Text Readability */
+        .header-video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
+        }
+
+        /* Header Text Content Styling */
+        .header-text-content {
+            position: relative;
+            z-index: 2;
+            color: #ffffff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+        }
+        .header-text-content .highlight-box {
+             background-color: rgba(255, 255, 255, 0.25);
+             backdrop-filter: blur(4px);
+             color: #ffffff;
+             border: 1px solid rgba(255, 255, 255, 0.5);
+             text-shadow: none;
+        }
+         .header-text-content .highlight-box strong {
+              color: #ffffff;
+              font-weight: 700;
+         }
+        .header-text-content .price-text {
+             color: #ffffff;
+             opacity: 0.95;
+             text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+             font-size: 1.125rem;
+             line-height: 1.75rem;
+        }
+         .header-text-content .cta-button {
+             background-color: #ffffff;
+             color: #047857;
+             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+         }
+          .header-text-content .cta-button:hover {
+             background-color: #f3f4f6;
+         }
+
+
+         /* Video Player Styling (for the demo video section) */
+         #video-section video {
+             display: block;
              width: 100%;
-             height: auto; /* Maintain aspect ratio */
-             border-radius: 0.5rem; /* Match container rounding */
+             height: auto;
+             border-radius: 0.5rem;
         }
         .video-container {
-            /* Styles applied to the div wrapping the video tag */
-             border-radius: 0.5rem; /* Tailwind rounded-lg */
-             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* Tailwind shadow-lg */
-             overflow: hidden; /* Ensure video corners are rounded */
-             background-color: #4b5563; /* Dark background while loading */
+             border-radius: 0.5rem;
+             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+             overflow: hidden;
+             background-color: #e5e7eb;
+        }
+
+        /* Styling for the embedded form section */
+        #signup-form {
+             background-color: #f9fafb; /* Light gray background for separation */
+        }
+        #signup-form iframe {
+            display: block; /* Remove extra space below iframe */
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%; /* Ensure iframe doesn't overflow container */
+            border: 1px solid #e5e7eb; /* Optional subtle border */
+            border-radius: 8px; /* Optional rounded corners */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* Optional shadow */
         }
 
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <header class="patterned-bg min-h-screen flex flex-col items-center justify-center text-center p-8 md:p-12 pb-16 md:pb-20 fade-in-section visible relative">
-        <svg class="leaf-decoration leaf-1" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17 8C8 10 5.9 16.17 3.83 21.17C5.83 20.17 7 18 8 16C11 18 13.72 16.66 15.4 14.23C17.5 11.23 17 8 17 8Z"/></svg>
-        <svg class="leaf-decoration leaf-2" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17 8C8 10 5.9 16.17 3.83 21.17C5.83 20.17 7 18 8 16C11 18 13.72 16.66 15.4 14.23C17.5 11.23 17 8 17 8Z"/></svg>
-        <svg class="leaf-decoration leaf-3" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17 8C8 10 5.9 16.17 3.83 21.17C5.83 20.17 7 18 8 16C11 18 13.72 16.66 15.4 14.23C17.5 11.23 17 8 17 8Z"/></svg>
-        <svg class="leaf-decoration leaf-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17 8C8 10 5.9 16.17 3.83 21.17C5.83 20.17 7 18 8 16C11 18 13.72 16.66 15.4 14.23C17.5 11.23 17 8 17 8Z"/></svg>
-        <svg class="leaf-decoration leaf-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17 8C8 10 5.9 16.17 3.83 21.17C5.83 20.17 7 18 8 16C11 18 13.72 16.66 15.4 14.23C17.5 11.23 17 8 17 8Z"/></svg>
+    <header class="fade-in-section visible relative">
+        <div class="header-video-container">
+            <video autoplay loop muted playsinline class="header-background-video">
+                <source src="header.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
 
-        <div class="content-wrapper max-w-3xl w-full">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
-                אוהל הגידול הביתי המהפכני
-            </h1>
-            <p class="text-xl md:text-2xl mb-10 font-light drop-shadow-md">
-                קל, פשוט ויעיל! גידול ביתי מעולם לא היה נגיש יותר.
-            </p>
-            <p class="text-lg md:text-xl mb-12 highlight-box p-5 rounded-lg inline-block shadow-md">
-                הירשמו עכשיו לקבלת <strong class="font-semibold">10% הנחה</strong> עם השקת המוצר (ללא התחייבות)!
-            </p>
-            <a href="#signup-form" class="inline-block whitespace-nowrap bg-emerald-600 text-white hover:bg-emerald-700 text-lg font-semibold py-3 px-10 rounded-full shadow-xl transition duration-300 ease-in-out transform hover:scale-105">
-                כן, אני רוצה את ההנחה!
-            </a>
-            <p class="mt-8 text-sm opacity-90">רק 980 ש"ח למערכת קומפלט!</p>
+            <div class="header-video-overlay"></div>
 
-            <div class="mt-10 max-w-xl mx-auto video-container"> <video controls preload="metadata">
+            <div class="absolute inset-0 flex items-center justify-center z-10">
+                 <div class="header-text-content container mx-auto px-6 text-center max-w-3xl py-10">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+                        אוהל הגידול הביתי המהפכני
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-10 font-light">
+                        זה כל כך קל, אפילו קוף יכול לעשות את זה
+                    </p>
+                    <p class="text-lg md:text-xl mb-12 highlight-box p-5 rounded-lg inline-block shadow-md">
+                        הירשמו עכשיו לקבלת <strong class="font-semibold">10% הנחה</strong> עם השקת המוצר (ללא התחייבות)!
+                    </p>
+                    <div class="space-y-4">
+                        <a href="#signup-form" class="cta-button inline-block whitespace-nowrap text-lg font-semibold py-3 px-10 rounded-full shadow-xl transition duration-300 ease-in-out transform hover:scale-105">
+                            כן, אני רוצה את ההנחה!
+                        </a>
+                        <p class="price-text text-base">רק 980 ש"ח למערכת קומפלט!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="video-section" class="py-16 md:py-20 px-6 bg-gray-100 fade-in-section">
+        <div class="container mx-auto text-center">
+             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">ראו אותו בפעולה!</h2>
+             <div class="max-w-3xl mx-auto video-container">
+                <video controls preload="metadata">
                     <source src="Hadgama.mp4" type="video/mp4">
                     סרטון הדגמה של אוהל הגידול. הדפדפן שלך אינו תומך בהצגת וידאו.
                 </video>
             </div>
         </div>
-    </header>
+    </section>
 
     <section id="features" class="py-20 px-6 md:px-12 bg-white fade-in-section">
         <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">
@@ -199,13 +217,11 @@
                  <h3 class="text-xl font-semibold mb-3 text-gray-800">מערכת חיבור אחד - Plug & Play</h3>
                  <p class="text-gray-600 leading-relaxed">פשוט חברו לחשמל והתחילו לגדל. רק שקע אחד, בלי סיבוכים.</p>
             </div>
-
             <div class="feature-box p-8 bg-gray-100 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1">
                   <i data-lucide="clock" class="feature-icon"></i>
                   <h3 class="text-xl font-semibold mb-3 text-gray-800">התקנה תוך דקות</h3>
                   <p class="text-gray-600 leading-relaxed">לא נדרש ידע מוקדם. מגיע עם מדריך פשוט וברור להתקנה מהירה.</p>
             </div>
-
             <div class="feature-box p-8 bg-gray-100 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1">
                   <div class="flex justify-center items-center space-x-4 rtl:space-x-reverse mb-5">
                       <i data-lucide="sun-medium" class="feature-icon !mb-0 !mx-0 text-emerald-500" style="width: 36px; height: 36px;"></i>
@@ -218,32 +234,12 @@
         </div>
     </section>
 
-    <section id="signup-form" class="py-20 px-6 md:px-12 patterned-bg fade-in-section relative">
-         <svg class="leaf-decoration leaf-1 opacity-10" style="top: 5%; left: 90%; width: 70px; transform: rotate(45deg) scaleX(-1);" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17 8C8 10 5.9 16.17 3.83 21.17C5.83 20.17 7 18 8 16C11 18 13.72 16.66 15.4 14.23C17.5 11.23 17 8 17 8Z"/></svg>
-         <svg class="leaf-decoration leaf-4 opacity-10" style="bottom: 10%; left: 5%; width: 90px; transform: rotate(-30deg);" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17 8C8 10 5.9 16.17 3.83 21.17C5.83 20.17 7 18 8 16C11 18 13.72 16.66 15.4 14.23C17.5 11.23 17 8 17 8Z"/></svg>
-
-        <div class="content-wrapper max-w-lg mx-auto text-center">
-             <h2 class="text-3xl md:text-4xl font-bold mb-6 drop-shadow-md">אל תפספסו!</h2>
-             <p class="text-lg md:text-xl mb-10 font-light drop-shadow-sm">
-                הבטיחו את ההנחה של 10% עוד היום (ללא התחייבות) וקבלו עדכון ראשונים כשהמוצר יהיה זמין.
-            </p>
-
-            <form id="early-access-form" class="bg-white p-8 md:p-10 rounded-lg shadow-xl text-gray-800">
-                 <div class="mb-6">
-                    <label for="name" class="block text-sm font-medium text-gray-700 text-start mb-2">שם מלא</label>
-                    <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 shadow-sm text-lg">
-                </div>
-                 <div class="mb-8">
-                    <label for="email" class="block text-sm font-medium text-gray-700 text-start mb-2">כתובת מייל</label>
-                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 shadow-sm text-lg">
-                </div>
-                 <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-lg font-semibold py-4 px-6 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105">
-                    שלחו וקבלו 10% הנחה!
-                </button>
-            </form>
-        </div>
+    <section id="signup-form" class="py-20 px-6 md:px-12 fade-in-section"> <div class="container mx-auto text-center">
+             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-10">הירשמו עכשיו להנחה!</h2>
+             <p class="text-lg text-gray-600 mb-12 max-w-xl mx-auto">מלאו את הטופס הקצר וקבלו 10% הנחה עם השקת המוצר, ללא כל התחייבות.</p>
+             <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd-NXKbBVo9cWJBQfQFH4Xx-gS8LWt9kyfD1TWBBua8q5s67A/viewform?embedded=true" width="640" height="1000" frameborder="0" marginheight="0" marginwidth="0">טוען…</iframe>
+             </div>
     </section>
-
     <footer class="bg-gray-800 text-gray-400 text-center py-8 fade-in-section">
         <p>&copy; 2025 אוהלי גידול העתיד. כל הזכויות שמורות.</p>
     </footer>
@@ -254,80 +250,39 @@
         // Initialize Lucide Icons
         lucide.createIcons();
 
-        // --- Simple Form Submission Simulation ---
-        const form = document.getElementById('early-access-form');
-        const messageBox = document.getElementById('message-box');
+        // --- Google Sheets Form Submission Script REMOVED ---
+        // The form submission is now handled by the embedded Google Form.
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent actual form submission
-
-            // Basic validation (HTML5 'required' already handles empty fields)
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-
-            if (name && email) {
-                // --- IMPORTANT ---
-                // In a real application, you would send the data (name, email)
-                // to your server here using fetch() or XMLHttpRequest
-                // to store it in a database.
-                console.log('Form submitted (simulated):', { name, email });
-                showMessage('תודה על ההרשמה! ניצור קשר לקראת ההשקה.', 'success');
-                form.reset(); // Clear the form
-            } else {
-                 showMessage('אנא מלאו את כל השדות.', 'error');
-            }
-        });
-
-        // --- Function to show temporary messages ---
+        // --- Function to show temporary messages (Kept for potential future use) ---
         function showMessage(message, type = 'success') {
+            const messageBox = document.getElementById('message-box');
+            if (!messageBox) return; // Exit if message box doesn't exist
             messageBox.textContent = message;
-            // Clear previous type classes before adding the new one
             messageBox.classList.remove('success', 'error');
-            messageBox.classList.add(type); // Add type (success/error)
+            messageBox.classList.add(type);
             messageBox.style.display = 'block';
-
-            // Hide the message box after 5 seconds
-            setTimeout(() => {
-                messageBox.style.display = 'none';
-            }, 5000);
+            setTimeout(() => { messageBox.style.display = 'none'; }, 5000);
         }
-
 
         // --- Intersection Observer for Fade-in Animation ---
         const sections = document.querySelectorAll('.fade-in-section');
-        const options = {
-            root: null, // relative to document viewport
-            rootMargin: '0px',
-            threshold: 0.1 // trigger when 10% of the section is visible
-        };
-
+        const options = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
-                // Check if section is intersecting and not already visible
                 if (entry.isIntersecting) {
                    if (!entry.target.classList.contains('visible')) {
                         entry.target.classList.add('visible');
                    }
-                    // Optional: stop observing once the element is visible
-                    // observer.unobserve(entry.target);
                 }
             });
         }, options);
-
-        // Make sure the header is visible on load without waiting for scroll
         const headerSection = document.querySelector('header.fade-in-section');
-        if (headerSection) {
-            headerSection.classList.add('visible'); // Make header visible immediately
-        }
-
+        if (headerSection) { headerSection.classList.add('visible'); }
         sections.forEach(section => {
-             // Don't observe the header if it's already set to visible
-            if (!section.isEqualNode(headerSection)) {
-                 observer.observe(section);
-            }
+             observer.observe(section);
         });
-
     </script>
 
 </body>
 </html>
+
